@@ -1,31 +1,30 @@
-module Numbers
+module NumbersStr
+  extend self
+
   START_NUM_REGEXP = /^\d+/.freeze
   END_NUM_REGEXP = /\d+$/.freeze
 
-  # def concat_and_glue_arrs!(first, second)
-  #   num_start = first.pop
-  #   num_end = second.first
-  #   first << concat_numbers(num_start, num_end)
-  #   first += second[1..]
-  # end
-
-  # def concat_numbers(first, second)
-  #   "#{first}#{second}".to_i
-  # end
-
+  # @return [Boolean]
   def start_with_num?(str)
+    str ||= ''
     str.match?(START_NUM_REGEXP)
   end
 
+  # @return [Boolean]
   def end_with_num?(str)
+    str ||= ''
     str.match?(END_NUM_REGEXP)
   end
 
+  # @return [Boolean]
   def str_is_number?(str)
+    str ||= ''
     str.match?(/^\d+$/)
   end
 
+  # @return [Array]
   def numbers_from_str(str)
-    str.scan(/\d+/).map(&:to_i)
+    str ||= ''
+    str.scan(/\d+/).uniq.map(&:to_i)
   end
 end

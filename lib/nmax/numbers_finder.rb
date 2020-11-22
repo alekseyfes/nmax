@@ -1,20 +1,10 @@
-class NumbersInText
-  include Numbers
+class NumbersFinder
+  include NumbersStr
+  include NumberOnLineBreak
 
+  # @return [Array<Integer>]
   def call(strings)
-    numbers = numbers_from_str(strings.first)
-
-    strings[1..].each_with_index do |str, i|
-      new_numbers = numbers_from_str(str)
-      pre_str = strings[i]
-      
-      if number_on_line_break?(pre_str, str)
-        concat_and_glue_arrs!(numbers, new_numbers)
-      else
-        numbers += new_numbers
-      end
-    end
-    
-    numbers
+    strings = without_number_on_br(strings)
+    strings.flat_map { |str| numbers_from_str(str) }.uniq
   end
 end
